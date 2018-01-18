@@ -18,14 +18,14 @@ stackMethods.push = function(value) {
 };
   
 stackMethods.pop = function() {
-	if (this.itemCount > 0) {
-		this.itemCount--;
-		var last = this.storage[this.itemCount];
-		delete this.storage[this.itemCount];
-		return last;
-	}
+  if (this.itemCount > 0) {
+    this.itemCount--;
+    var last = this.storage[this.itemCount];
+    delete this.storage[this.itemCount];
+    return last;
+  }
 };
 
 stackMethods.size = function() {
-	return this.itemCount;
+  return this.itemCount;
 };

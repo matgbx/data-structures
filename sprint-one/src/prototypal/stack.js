@@ -11,19 +11,19 @@ var Stack = function() {
 var stackMethods = {};
 
 stackMethods.push = function(value) {
-	this.storage[this.count] = value;
-	this.count++;
+  this.storage[this.count] = value;
+  this.count++;
 };
 
 stackMethods.pop = function() {
-	if (this.count > 0) {
-		this.count--;
-		var item = this.storage[this.count];
-		delete this.storage[this.count];
-		return item;
-	}
+  if (this.count > 0) {
+    this.count--;
+    var item = this.storage[this.count];
+    delete this.storage[this.count];
+    return item;
+  }
 };
 
 stackMethods.size = function() {
-	return this.count;
+  return this.count;
 };
