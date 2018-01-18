@@ -26,6 +26,7 @@ define([
       if (variant === 'pseudoclassical' || variant === 'es6') {
         stack = new instantiator();
       } else {
+        // stack = Stack();
         stack = instantiator();
       }
     });
