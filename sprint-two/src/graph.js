@@ -17,31 +17,27 @@ Graph.prototype.addNode = function(node) {
 
 // Return a boolean value indicating if the value passed to contains is represented in the graph.
 Graph.prototype.contains = function(node) {
-  var res = false;
-  this.forEachNode(this.storage, function(item) {
-    if (item === node) {
-      res = true;
-    }
-  });
-  return res;
+  return this.storage.hasOwnProperty(node);
 };
 
 // Removes a node from the graph.
 Graph.prototype.removeNode = function(node) {
-  delete this.storage[node];
+  if (this.contains(node)) {
+    delete this.storage[node];
+    for (var i = 0; i < this.edges.length; i++) {
+      if (this.edges[i][0] === node.toString()) {
+        this.removeEdge(Number(this.edges[i][0]), Number(this.edges[i][1]));
+      }
+    }
+  }
 };
 
 // Returns a boolean indicating whether two specified nodes are connected.  
 //Pass in the values contained in each of the two nodes.
 Graph.prototype.hasEdge = function(fromNode, toNode) {
-  var stringEdge = '' + fromNode + toNode;
-  var res = false;
-  this.forEachNode(this.edges, function(item) {
-    if (item === stringEdge) {
-      res = true;
-    }
-  });
-  return res;
+  var vertex = '' + fromNode + toNode;
+  return this.edges.includes(vertex);
+
 };
 
 // Connects two nodes in a graph by adding an edge between them.
@@ -51,20 +47,24 @@ Graph.prototype.addEdge = function(fromNode, toNode) {
 
 // Remove an edge between any two specified (by value) nodes.
 Graph.prototype.removeEdge = function(fromNode, toNode) {
+  var edge1 = '' + fromNode + toNode;
+  var edge2 = edge1.split('').reverse().join('');
+  for (var i = 0; i < this.edges.length; i++) {
+    if (this.edges[i] === edge1) {
+      this.edges.splice(i, 1);
+    }
+    if (this.edges[i] === edge2) {
+      this.edges.splice(i, 1);
+    }
+  }
 };
 
 
 
 // Pass in a callback which will be executed on each node of the graph.
-Graph.prototype.forEachNode = function(coll, cb) {
-  if (Array.isArray(coll)) {
-    for (var i = 0; i < coll.length; i++) {
-      cb(coll[i], i, coll);
-    }
-  } else if (typeof coll === 'object') {
-    for (var key in coll) {
-      cb(coll[key], key, coll);
-    }
+Graph.prototype.forEachNode = function(cb) {
+  for(let key in this.storage){
+    cb(this.storage[key]);
   }
 };
 
