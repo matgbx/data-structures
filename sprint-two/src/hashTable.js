@@ -8,26 +8,35 @@ var HashTable = function() {
 
 HashTable.prototype.insert = function(k, v) {
   var index = getIndexBelowMaxForKey(k, this._limit);
-  var indexHasValues;
-  this._storage.each(function(item, i, coll) {
-    if (i === index) {
-      if (Array.isArray(item)) {
-        indexHasValues = item.length;
-      } else {
-        indexHasValues = 1;
-      }
-    }
-  });
-  this._storage.set(index, v);
-  console.log(indexHasValues);
-  
-    
+  var valAtIndex = this._storage.get(index);
+  var valArray;
+  if (!valAtIndex) {
+    this._storage.set(index, [k, v]);
+  } else if (valAtIndex && !Array.isArray(valAtIndex[0])) {
+    this._storage.set(index, [valAtIndex, [k, v]]);
+  } else if (valAtIndex && Array.isArray(valAtIndex[0])) {
+    valAtIndex.push([k, v]);
+    this._storage.set(index, valAtIndex);
+  }
 };
 
 HashTable.prototype.retrieve = function(k) {
   var index = getIndexBelowMaxForKey(k, this._limit);
-  return this._storage.get(index);
-
+  //loop and check if item[0] is an array.
+  var valAtIndex = this._storage.get(index);
+  var result;
+  if (valAtIndex) {
+    if (!Array.isArray(valAtIndex[0]) && valAtIndex[0] === k) {
+      return valAtIndex[1];
+    } else if (Array.isArray(valAtIndex[0])) {
+      valAtIndex.forEach(function(item, i, coll) {
+        if (item[0] === k) {
+          result = item[1];
+        }
+      });
+    }
+  }
+  return result; 
 };
 
 HashTable.prototype.remove = function(k) {
