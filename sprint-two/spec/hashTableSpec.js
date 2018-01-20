@@ -34,6 +34,9 @@ describe('hashTable', function() {
     hashTable.remove('Steven');
     expect(hashTable.retrieve('Steven')).to.equal(undefined);
   });
+  it('should only accept a string as a key input', function() {
+    expect(function() { hashTable.insert(9, 'Tyler'); }).to.throw(Error);
+  });
 
   it('should handle hash function collisions', function() {
     var v1 = 'val1';

@@ -7,16 +7,20 @@ var HashTable = function() {
 };
 
 HashTable.prototype.insert = function(k, v) {
-  var index = getIndexBelowMaxForKey(k, this._limit);
-  var valAtIndex = this._storage.get(index);
-  var valArray;
-  if (!valAtIndex) {
-    this._storage.set(index, [k, v]);
-  } else if (valAtIndex && !Array.isArray(valAtIndex[0])) {
-    this._storage.set(index, [valAtIndex, [k, v]]);
-  } else if (valAtIndex && Array.isArray(valAtIndex[0])) {
-    valAtIndex.push([k, v]);
-    this._storage.set(index, valAtIndex);
+  if (typeof k === 'string') {
+    var index = getIndexBelowMaxForKey(k, this._limit);
+    var valAtIndex = this._storage.get(index);
+    var valArray;
+    if (!valAtIndex) {
+      this._storage.set(index, [k, v]);
+    } else if (valAtIndex && !Array.isArray(valAtIndex[0])) {
+      this._storage.set(index, [valAtIndex, [k, v]]);
+    } else if (valAtIndex && Array.isArray(valAtIndex[0])) {
+      valAtIndex.push([k, v]);
+      this._storage.set(index, valAtIndex);
+    }
+  } else {  
+    throw Error('key must be a string!');
   }
 };
 
