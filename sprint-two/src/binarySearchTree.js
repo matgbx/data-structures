@@ -1,22 +1,22 @@
 var BinarySearchTree = function(value) {
-  var tree = {};
-  tree.value = value;
-  tree.storage = {};
-  tree.children = [];
-  _.extend(tree, treeMethods);
+  var newTree = {};
+  newTree.value = value;
+  newTree.storage = {};
+  newTree.children = [];
+  _.extend(newTree, newTreeMethods);
    
-  return tree;   
+  return newTree;   
 };
 
-var treeMethods = {};
+var newTreeMethods = {};
 
-treeMethods.insert = function() {
-
-};
-treeMethods.contains = function() {
+newTreeMethods.insert = function() {
 
 };
-treeMethods.depthFirstLog = function() {
+newTreeMethods.contains = function() {
+
+};
+newTreeMethods.depthFirstLog = function() {
   
 };
             
