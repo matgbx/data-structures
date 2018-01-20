@@ -72,7 +72,7 @@ describe('linkedList', function() {
     expect(linkedList.findValue(8).next.value).to.equal(5);
   });
 
-  it('should return the target value when findValue is called', function() {
+  it('should return the target object when findValue is called', function() {
     linkedList.addToTail(4);
     linkedList.addToTail(5);
     linkedList.addToTail(6);
