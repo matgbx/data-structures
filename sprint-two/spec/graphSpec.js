@@ -26,6 +26,14 @@ describe('graph', function() {
     graph.removeNode(2);
     expect(graph.contains(2)).to.equal(false);
   });
+  
+  it('should not remove nodes that do not exist', function() {
+    graph.addNode(2);
+    graph.addNode(1);
+    graph.addNode(3);
+    graph.removeNode(1);
+    expect(graph.removeNode(1)).to.equal(undefined);
+  });
 
   it('should create edges between two nodes', function() {
     graph.addNode(2);
