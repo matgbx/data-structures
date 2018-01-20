@@ -15,6 +15,13 @@ describe('tree', function() {
     tree.addChild(5);
     expect(tree.children[0].value).to.equal(5);
   });
+  
+  it('should only accept numbers as input', function() {
+    tree.addChild(3);
+    tree.addChild(4);
+    expect(function() { tree.addChild('timmy'); }).to.throw(Error);
+    expect(function() { tree.contains('timmy'); }).to.throw(Error);    
+  });
 
   it('should return true for a value that the tree contains', function() {
     tree.addChild(5);
