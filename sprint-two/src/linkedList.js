@@ -3,11 +3,42 @@ var LinkedList = function() {
   list.head = null;
   list.tail = null;
 
+  list.insert = function(target, value) {
+    var node = new Node(value);
+    var idealHead = list.head;
+    var search = function(idealHead, target, value) {
+      if (idealHead.value && idealHead.value === target) {
+        var currentNode = idealHead;
+        var nodeAfter = idealHead.next;
+        currentNode.next = node;
+        node.next = nodeAfter;
+      } else {
+        idealHead = idealHead.next;
+        search(idealHead);
+      }
+    };
+    search(idealHead, target, value);
+  };
+
+  list.findValue = function(target) {
+    var value;
+    var search = function(obj, target) {
+      if (obj.value && obj.value === target) {
+        value = obj;
+      } else if (obj.next) {
+        search(obj.next, target);
+      }
+    };
+    search(list.head, target);
+    // console.log(typeof value);
+    return value;
+  };
+
   list.addToTail = function(value) {
     var node = new Node(value);
     if (!list.head) {
       list.head = node;
-      list.tail = node;
+      list.tail = list.head;
     } else {
       list.tail.next = node;
       list.tail = node; 
@@ -23,25 +54,16 @@ var LinkedList = function() {
   };
 
   list.contains = function(target) {
-    var item = list.head;
-    
-    if (item.value === target) {
-      return true;
-    }
-    var test = false;
-    var nextItem = item.next;
-    while (test === false) {
-      if (!nextItem) {
-        return false;
-      } else if (nextItem.value !== target) {
-        test = false;
-        nextItem = nextItem.next;
-      } else if (nextItem.value === target) {
-        test = true;
+    var val = false;
+    var search = function(obj, target) {
+      if (obj.value && obj.value === target) {
+        val = true;
+      } else if (obj.next) {
+        search(obj.next, target);
       }
-    }
-    
-    return test;
+    };
+    search(list.head, target);
+    return val;
   };
 
   return list;
