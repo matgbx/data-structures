@@ -54,16 +54,8 @@ var LinkedList = function() {
   };
 
   list.contains = function(target) {
-    var val = false;
-    var search = function(obj, target) {
-      if (obj.value && obj.value === target) {
-        val = true;
-      } else if (obj.next) {
-        search(obj.next, target);
-      }
-    };
-    search(list.head, target);
-    return val;
+    var result = list.findValue(target);
+    return result !== undefined ? true : false;
   };
 
   return list;
