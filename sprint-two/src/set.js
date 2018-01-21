@@ -7,16 +7,23 @@ var Set = function() {
 var setPrototype = {};
 
 setPrototype.add = function(item) {
-  this.storage[item] = item;
-
+  if (typeof item === 'string') {
+    this.storage[item] = item;
+  }
 };
 
 setPrototype.contains = function(item) {
-  return this.storage[item] ? true : false;
+  if (typeof item === 'string') {
+    return this.storage[item] ? true : false;
+  } else {
+    throw Error('input is not a string');
+  }
 };
 
 setPrototype.remove = function(item) {
-  delete this.storage[item];
+  if (typeof item === 'string') {
+    delete this.storage[item];
+  }
 };
 
 /*

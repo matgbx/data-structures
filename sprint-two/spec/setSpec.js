@@ -24,4 +24,17 @@ describe('set', function() {
     expect(set.contains('Mel Gibson')).to.equal(false);
   });
 
+  it('should only accepts strings as inputs', function() {
+    set.add('Pink Panther');
+    set.add(true);
+    set.add(null);
+    set.add(undefined);
+    set.add(10);
+    expect(set.contains('Pink Panther')).to.equal(true);
+    expect(function() { set.contains(true); }).to.throw(Error);
+    expect(function() { set.contains(null); }).to.throw(Error);    
+    expect(function() { set.contains(undefined); }).to.throw(Error);
+    expect(function() { set.contains(10); }).to.throw(Error);  
+  });
+
 });
